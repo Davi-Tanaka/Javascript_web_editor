@@ -1,0 +1,224 @@
+@use "../../../../public/style/utils/colors" as colors;
+@import url("/src/public/style/utils/base.module.scss");
+
+#root {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  
+  #input_section {
+    width: 80vw;
+    height: 100vh;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+  
+    .buttons_wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: start;
+      padding: 0 1em;
+      gap: .5em;
+
+      height: 5em;
+
+      border-bottom: 1px solid #d3d3d3;
+  
+      & > button {
+        border-radius: 100%;
+        width: 3em;
+        height: 3em;
+        background-color: rgba(250,250,250);
+        border: none;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        & > * {
+          flex-grow: 0;
+          flex-shrink: 0;
+        }
+
+        & > span {
+          transition: transform .1s linear;
+        }
+
+        &:hover {
+          & > span {
+            transform: translateY(-1pt);
+          }
+        }
+
+        &.run {
+          background: colors.$cta;
+
+          & > span {
+            color: colors.$gray;
+          }
+        }
+      }
+  
+      .code_input {
+        border: none;
+      }
+    }
+  
+    .editor {
+      overflow: scroll;
+
+      width: 100%;
+      height: 100%;
+      gap: 1em;
+      display: inline-flex;
+      padding: .5em 0;
+
+      .line-number {
+        width: 2em;
+        text-align: right;
+        padding: 0 .5em;
+        line-height: 1rem;
+        border-right: 1px solid rgba(0,0,0,.2);
+        height: 3em;
+        height: fit-content;
+
+        & span {
+          line-height: 1rem;
+          font-size: .8rem;
+          color: gray;
+          display: block;
+        }
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 100%;
+        border: none;
+        resize: none;
+        border-style: none;
+        overflow: none;
+
+        line-height: 1rem;
+        outline: none;
+
+        font-size: 1rem;
+
+        &::-webkit-scrollbar {
+          display: none;
+          opacity: 0;
+        }
+      }
+    }
+  }
+  
+  #output_section {
+    position: relative;
+
+    width: clamp(20em, 20vw ,40em);
+    height: 100vh;
+  
+    background-color: #fbfbfb;
+    border-left: 1px solid #d3d3d3;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    & > * { 
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+
+    padding: 5.5em 0 0 0;
+
+    .header {
+      width: 100%;
+      height: 5em;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      padding: 0 1em;
+  
+      background-color: #fbfbfb;
+
+      .title {
+        color: black;      
+      }
+
+      position: fixed;
+      top: 0;
+    }
+
+    @keyframes removing_result_line {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(100%);
+      }
+    }
+
+    .result_line {
+      width: 100%;
+      min-height: 3em;
+      height: fit-content;
+
+      padding: 1em;
+      
+      display: flex;
+      flex-direction: column;
+      
+      &.removing {
+        animation: removing_result_line .15s ease-in forwards;
+      }
+
+      .result_time {
+        color: rgba(200,200,200, 1);
+        font-weight: bolder;
+      }
+
+
+      &:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+
+      &:nth-child(odd) {
+        background-color: #e3e3e3;
+      }
+    }
+  }
+
+
+
+  
+  #configuration_screen {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    backdrop-filter: blur(5px) grayscale(10%);
+  }
+}
+

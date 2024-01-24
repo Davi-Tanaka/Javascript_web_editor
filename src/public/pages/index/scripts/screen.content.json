@@ -1,0 +1,15 @@
+{
+  "help": {
+    "sections": [
+      {
+        "title": "Autor.",
+
+        "content": {
+          "id": "criador-do-site",
+          "title": "Criador do site",
+          "content": "Conta Github: <a href='https://github.com/Davi-Tanaka'>https://github.com/Davi-Tanaka<a>\nRepositorio: <a href='https://github.com/Davi-Tanaka/Javascript_web_editor'>https://github.com/Davi-Tanaka/Javascript_web_editor</a>"
+        }
+      }
+    ]
+  }
+}

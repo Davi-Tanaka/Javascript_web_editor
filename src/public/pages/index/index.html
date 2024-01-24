@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <title>Javascript Web Editor</title>
+</head>
+<body>
+  <div id="root">
+    <div id="input_section">
+      <div class="buttons_wrapper">
+        <button class="run" title="Executar codigo">
+          <span class="material-symbols-outlined">play_arrow</span>
+        </button>
+        <button class="config"  title="Configurar Editor">
+          <span class="material-symbols-outlined">manufacturing</span>
+        </button>
+        <button class="config"  title="Ajuda">
+          <span class="material-symbols-outlined">question_mark</span>
+        </button>
+      </div>
+      
+      <div class="editor">
+        <div class="line-number">
+          <span>1</span>
+        </div>
+        <code>
+          <textarea 
+            id="" 
+            name="text_editor" 
+            title="text_editor" 
+            autofocus 
+            class="editor_textarea">console.log("Olá Mundo.")</textarea>
+        </code>
+
+      </div>
+    </div>
+    <div id="output_section">
+      <div class="header">
+        <h3 classs="title">Console</h3>
+      </div>
+      <!-- <div class="result_line">
+        <span class="result_time">12:28</span>
+        <span>Hello World</span>
+      </div> -->
+    </div>
+
+
+    <div class="screen" id="configuration_screen">
+      
+      <form action="" method="post">
+        <div class="title-container">
+          <h5 class="title">Configuration</h5>
+        </div>
+  
+        <div class="content-container">
+          <nav class="">
+            <ul>
+              <li class="item"><a href="/#editor"></a></li>
+            </ul>
+          </nav>
+          <div class="content">
+            <div class="container">
+              <label for="">Theme:</label>
+              <optgroup id="optgroup_theme" name="theme">
+                <option value="light" default>Claro</option>
+                <option value="dark">Escuro</option>
+              </optgroup>
+            </div>
+            
+            <div class="container">
+              <label for="tab_space_width"></label>
+              <input type="number" name="tab_space_width" id="tab_space_width">
+            </div>
+
+            <button type="submit">Salvar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="screen" id="help_screen">
+      <nav>
+        <ul>
+          <li class="item"><a href="">Author?</a></li>
+        </ul>
+      </nav>
+      <div class="content-wrapper">
+        <div class="container">
+          <p class="content"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./scripts/script.js" defer type="module" ></script>
+</body>
+</html>
