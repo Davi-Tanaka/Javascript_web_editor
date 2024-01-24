@@ -6,8 +6,10 @@ const numbers = document.querySelector(".line-number");
 const $outputSection = document.querySelector("#output_section");
 const $runCodeButton = document.querySelector(".buttons_wrapper .run");
 const $configButton = document.querySelector(".buttons_wrapper .config");
+const $helpButton = document.querySelector(".buttons_wrapper .help");
 
 const $configuration_screen = document.querySelector("#configuration_screen");
+const $help_screen = document.querySelector("#help_screen");
 
 console.oldLog = console.log;
 console.log = (value) => {
@@ -66,8 +68,8 @@ function setTextAreaAutoResizable(e) {
   textarea.style.height = (target.scrollHeight) + "px";
 }
 
-function openConfigScreen() {
-  
+function handleScreen(element, to) {
+  element.classList.add(to);
 }
 
 function clearConsole() {
@@ -100,14 +102,11 @@ function returnResultFromCodeExecution(result) {
   }
 }
 
-function handleScreen(event, element, toClass) {
-  element.classList.add(toClass);
-};
-
 returnResultFromCodeExecution("Hello World !")
 
 $runCodeButton.addEventListener("click", runJavascriptCode);
-$configButton.addEventListener("click", openConfigScreen);
+$configButton.addEventListener("click", () => handleScreen($configuration_screen, "open"));
+$helpButton.addEventListener("click", () => handleScreen($help_screen, "open"));
 
 textarea.addEventListener("keyup", setTextAreaAutoResizable);
 textarea.addEventListener("keydown", createTab);
