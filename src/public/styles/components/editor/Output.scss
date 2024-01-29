@@ -1,0 +1,86 @@
+#output_section {
+  position: relative;
+
+  width: clamp(20em, 20vw ,40em);
+  height: 100vh;
+
+  background-color: #fbfbfb;
+  border-left: 1px solid #d3d3d3;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  & > * { 
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+
+  padding: 5.5em 0 0 0;
+
+  .header {
+    width: 100%;
+    height: 5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 0 1em;
+
+    background-color: #fbfbfb;
+
+    .title {
+      color: black;      
+    }
+
+    position: fixed;
+    top: 0;
+  }
+
+  @keyframes removing_result_line {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  .result_line {
+    width: 100%;
+    min-height: 3em;
+    height: fit-content;
+
+    padding: 1em;
+    
+    display: flex;
+    flex-direction: column;
+    
+
+    &.removing {
+      animation: removing_result_line .15s ease-in forwards;
+    }
+
+    .result_time {
+      color: rgba(200,200,200, 1);
+      font-weight: bolder;
+    }
+
+    .output_value {
+      pre {
+        white-space: pre-wrap;
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: #fbfbfb;
+    }
+
+    &:nth-child(odd) {
+      background-color: #e3e3e3;
+    }
+  }
+}
