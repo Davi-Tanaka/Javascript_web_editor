@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowImportingTsExtensions": false,
+    "target": "ES2015",     
+    "jsx": "react-jsx",     
+    "module": "commonjs",   
+    "rootDir": "./src",     
+    "outDir": "./dist",     
+    "removeComments": true, 
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,   
+    "skipLibCheck": true,
+    
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"],
+      "@public/*": ["./public/*"],
+      "@styles/*": ["./public/styles/*"],
+      "@interfaces/*": ["./interfaces/*"],
+    }
+  }
+}

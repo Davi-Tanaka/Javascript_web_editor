@@ -4,24 +4,31 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp watch",
-    "build": "gulp"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-watch": "^5.0.1",
-    "sass": "^1.70.0"
+    "sass": "^1.70.0",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "gulp-clean-css": "^4.3.0",
-    "gulp-dart-sass": "^1.1.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-minify": "^3.1.0",
-    "gulp-minify-css": "^1.2.4",
-    "gulp-sass": "^5.1.0",
-    "readable-stream": "^4.5.2"
+    "@codemirror/lang-javascript": "^6.2.1",
+    "@types/node": "^20.11.7",
+    "@types/react": "^18.2.48",
+    "@types/react-codemirror": "^1.0.11",
+    "@types/react-dom": "^18.2.18",
+    "@uiw/codemirror-theme-material": "^4.21.21",
+    "@uiw/codemirror-themes": "^4.21.21",
+    "@uiw/react-codemirror": "^4.21.21",
+    "@vitejs/plugin-react": "^4.2.1",
+    "codemirror": "^5.65.16",
+    "npm": "^10.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vite": "^5.0.12"
   }
 }
