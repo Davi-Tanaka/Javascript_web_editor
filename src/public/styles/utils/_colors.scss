@@ -5,3 +5,11 @@ $darkness: black;
 $cta: #322653;
 $purple: #7722e7;
 $pink: #ff0069;
+
+$material_light: #FAFAFA;
+$material_dark: #2e3235;
+
+:export {
+  material_light: $material_light;
+  material_dark: $material_dark;
+}
