@@ -46,6 +46,7 @@
 
     to {
       transform: translateX(100%);
+      opacity: 0;
     }
   }
 
@@ -57,11 +58,24 @@
     padding: 1em;
     
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: column;    
 
-    &.removing {
-      animation: removing_result_line .15s ease-in forwards;
+    &:nth-child(even) {
+      background-color: #fbfbfb;
+    }
+
+    &:nth-child(odd) {
+      background-color: #e3e3e3;
+    }
+
+    &.removing-animation {
+      animation: removing_result_line .3s ease-in forwards;
+    }
+
+    &.error {
+      pre {
+        color: red
+      }
     }
 
     .result_time {
@@ -73,14 +87,6 @@
       pre {
         white-space: pre-wrap;
       }
-    }
-
-    &:nth-child(even) {
-      background-color: #fbfbfb;
-    }
-
-    &:nth-child(odd) {
-      background-color: #e3e3e3;
     }
   }
 }

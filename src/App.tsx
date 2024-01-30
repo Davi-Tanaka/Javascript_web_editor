@@ -1,6 +1,8 @@
 import "@styles/pages/index/index.scss";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
+
+import ConfigContextProvider from "@/context/ConfigContextProvider";
 
 import BluredBackground from "@components/BluredBackground";
 import ConfigModal from "@components/modals/Config";
@@ -8,44 +10,87 @@ import HelpModal from "@components/modals/Help";
 
 import ButtonsHeader from "@components/editor/ButtonsHeaders"
 import Editor from "@components/editor/Editor"
-import EditorOutput from "@components/editor/Output"
+import EditorOutput from "@/components/editor/EditorOutput"
 import OutputLine from "@components/editor/OutputLine";
 
+import { OutputObject } from "@interfaces/EditorOutput/OutputObject";
+
 function App() {
-  const [oldConsole, setOldConsole] = useState<Console>({
-    ...console
-  });
-  
-  const [outputArray, setOutputArrayValue] = useState<string[]>([]);
+  const [outputArray, setOutputArrayValue] = useState<OutputObject[]>([{
+    type: "log",
+    result: "Bem vindo :D"
+  }]);
+
   const [ screensStatus, setScreenStatus ] = useState({
     helpIsOpen: false,
     configIsOpen: false,
   });
+
+  const [ clearOutputLines, shouldClearOutputLines ] = useState(false);
     
-  console.log = useCallback((value) => {
+  console.log = function (value) {
     return value;
-  }, [])
+  };
 
   console.error = useCallback((value) => {
     return value;
   }, []);
 
+  console.clear = useCallback(() => {  
+    shouldClearOutputLines(true);
+  
+    setTimeout(async () => {
+      shouldClearOutputLines(false);
+    }, 10)
+  },[]);
+
+  console.error = (error) => {
+    setOutputArrayValue([...outputArray, {
+      type: "error",
+      result: error
+    }]);
+  }
+
   const buttonsHeaderCommand = {
     run: (event) => {
       const editorTextValue =  document.querySelector("#CodeMirrorEditor").ariaValueText;
-      const codeResult = eval(editorTextValue);
 
-      switch(typeof codeResult) {
-        case "object": 
-          setOutputArrayValue([...outputArray, JSON.stringify(codeResult) ]);
+      try {
+        const codeResult = eval(editorTextValue);
+        const resultType = typeof codeResult;
 
-          break;
-
-        default:
-          setOutputArrayValue([...outputArray, codeResult]);
-
-          break;
-      }          
+        if(resultType != "undefined") {
+          if(resultType == "object") {
+            setOutputArrayValue([...outputArray, {
+              type: "log",
+              result: codeResult
+            } ]);
+          }
+    
+          if(resultType == "boolean") {
+            setOutputArrayValue([...outputArray, {
+              type: "log",
+              result: (codeResult as boolean).toString()
+            }]);
+          }
+    
+          if(resultType == "function") {
+            setOutputArrayValue([...outputArray, {
+              type: "log",
+              result: (codeResult as Function)()
+            }]);
+          }
+    
+          if(resultType != "object" && resultType != "boolean" && resultType != "function") {
+            setOutputArrayValue([...outputArray, {
+              type: "log",
+              result: codeResult
+            }]);
+          }
+        }
+      } catch(err) {
+        console.error(`Error: ${err.message};`);
+      }
     },
 
     config: (event)=> {
@@ -84,33 +129,35 @@ function App() {
 
   return(
     <>
-    <div id="root">
-
-      { screensStatus.configIsOpen 
-          && 
-        <BluredBackground>
-          <ConfigModal closeFunc={buttonsHeaderCommand.config}/>
-        </BluredBackground>
-      }
-      { 
-        screensStatus.helpIsOpen
-          && 
-        <BluredBackground>
-          <HelpModal closeFunc={buttonsHeaderCommand.help}/>
-        </BluredBackground>
-      }
-
-      <div id="editor_container">
-        <ButtonsHeader commandFunctions={ buttonsHeaderCommand }/>
-        <Editor/>
-      </div>
-      
-      <EditorOutput>
+    <ConfigContextProvider>
+      <div id="root">
         { 
-          outputArray.map((value, index) => <OutputLine value={value} key={index}/>) 
+          screensStatus.configIsOpen 
+            && 
+          <BluredBackground>
+            <ConfigModal closeFunc={buttonsHeaderCommand.config}/>
+          </BluredBackground>
         }
-      </EditorOutput>
-    </div>
+        { 
+          screensStatus.helpIsOpen
+            && 
+          <BluredBackground>
+            <HelpModal closeFunc={buttonsHeaderCommand.help}/>
+          </BluredBackground>
+        }
+
+        <div id="editor_container">
+          <ButtonsHeader commandFunctions={ buttonsHeaderCommand }/>
+          <Editor/>
+        </div>
+        
+        <EditorOutput clearOutputLines={clearOutputLines}>
+          {
+            outputArray.map((value, index) => <OutputLine value={value} key={index}/>)
+          }
+        </EditorOutput>
+      </div>
+    </ConfigContextProvider>
     </>
   );
 }

@@ -1,5 +1,7 @@
 import { FlexDirection } from "@interfaces/Styles";
 
+import React from "react";
+
 import "@styles/components/navigation/Sidebar.scss";
 
 interface SidebarProps {
@@ -16,6 +18,7 @@ function Sidebar({ children, direction, backgroundColor, height, width}: Sidebar
     width: "5em",
     height: "100%"
   }
+
   return(
     <>
       <nav

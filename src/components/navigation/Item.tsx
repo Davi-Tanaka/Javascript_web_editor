@@ -1,15 +1,21 @@
 import "@styles/components/navigation/Item.scss";
-import { memo } from "react";
+import { CSSProperties, memo, useState, useRef } from "react";
 
 interface ItemProps {
   googleIcon?: string,
   value: string,
-  goTo: string
+  goTo: string,
+  isActivated?: boolean | false
 }
 
 function Item(prop: ItemProps) {
+  const item = useRef<HTMLLIElement>();
+  const [itemIsActvated, isItemActivated] = useState(false);
+
   return(
-    <li className="item">
+    <li
+      className="item" 
+      ref={item} >
       <a href={prop.goTo} className="hyper-link">
         <div className="icon-wrapper">
           <span className="material-symbols-outlined">

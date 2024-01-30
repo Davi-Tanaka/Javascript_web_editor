@@ -1,14 +1,15 @@
 import "@styles/components/editor/Editor.scss"
-
 import CodeMirror from "@uiw/react-codemirror";
-import { defaultSettingsMaterialLight, materialLightInit} from "@uiw/codemirror-theme-material";
+import { defaultSettingsMaterialLight, defaultSettingsMaterialDark, materialInit } from "@uiw/codemirror-theme-material";
 
 import { javascript } from '@codemirror/lang-javascript';
-import {  useState, useMemo, useCallback, memo } from "react";
+import { ConfigContext } from "@/context/ConfigContext";
 
+import {  useState, useMemo, useCallback, memo, useContext } from "react";
 
 function Editor() {
   const [editorValue, setEditorValue] = useState(null);
+  const [config, setConfig ] = useContext(ConfigContext);
 
   const defaultEditorValue = useMemo(() => 
 `function conseguirOQuadradoDeUmNumero(x) {
@@ -29,9 +30,11 @@ console.log('O quadrado do número 9213 é:' + quadradoDe9213);`,[]);
           <CodeMirror 
             id="CodeMirrorEditor"
             theme={ 
-              materialLightInit(
-                { settings: defaultSettingsMaterialLight }
-              ) 
+              materialInit(
+                { 
+                  settings: (config.theme == "light") ? defaultSettingsMaterialLight : defaultSettingsMaterialDark
+                }
+              )
             }
 
             indentWithTab={ true }
