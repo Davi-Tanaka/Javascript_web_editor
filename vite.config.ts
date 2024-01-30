@@ -17,11 +17,12 @@ export default defineConfig({
       "@public": resolve(__dirname,"/src/public"),
       "@styles": resolve(__dirname,"/src/public/styles"),
       "@interfaces": resolve(__dirname,"/src/interfaces"),
+      "@context": resolve(__dirname,"/src/context"),
     }
   },
 
   build: {
-    cssMinify: "lightningcss",
+    cssMinify: "esbuild",
     minify: "esbuild",
     outDir: resolve(__dirname, "/dist"),
   },
