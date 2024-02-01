@@ -1,3 +1,5 @@
+@use "/src/public/styles/utils/colors.module" as colors;
+
 #output_section {
   position: relative;
 
@@ -30,6 +32,7 @@
     padding: 0 1em;
 
     background-color: #fbfbfb;
+    z-index: 10;
 
     .title {
       color: black;      
@@ -86,6 +89,32 @@
     .output_value {
       pre {
         white-space: pre-wrap;
+      }
+    }
+  }
+
+
+  &.theme-dark {
+    background-color: colors.$material_dark;
+
+    .header {
+      background-color: colors.$material_dark;
+      .title {
+        color: white;
+      }
+
+      border-bottom: 1px solid colors.$gray ;
+    }
+
+    .result_line {
+      color: white;
+
+      &:nth-child(even) {
+        background-color: rgb(70, 70, 70);
+      }
+
+      &:nth-child(odd) {
+        background-color: rgb(50, 50, 50);
       }
     }
   }

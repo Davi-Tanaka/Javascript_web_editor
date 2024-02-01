@@ -1,6 +1,11 @@
-@use "/src/public/styles/utils/colors"  as colors;
+@use "/src/public/styles/utils/colors.module"  as colors;
 
 .buttons_wrapper {
+  $button_border_size: .25em;
+  $button_light_border_color: colors.$gray;
+  $button_dark_border_color: #464C50;
+
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -15,22 +20,44 @@
 
   background-color: #FAFAFA;
 
-  border-bottom: 1px solid #d3d3d3;
+  border-bottom: 1px solid colors.$gray;
+  position: relative;
 
-  & > button {
-    border-radius: 100%;
-    width: 3em;
+  overflow: hidden;
+
+  button {
+    border-radius: .33em;
+    width: 5em;
     height: 3em;
     background-color: #f0f0f0;
     border: none;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    position: relative;
 
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+
+    border-bottom: $button_border_size solid $button_light_border_color;
+    transition: border-bottom .15s ease-out;
+
+    &.run {
+      border-bottom: $button_border_size solid colors.$darkness;
+    }
+    
+    &.clicked {
+      border-bottom: .0 solid $button_light_border_color;
+      border: 1px solid $button_light_border_color;
+
+      &.run {
+        border-bottom: .0 solid colors.$gray;
+        border: 1px solid colors.$black;
+      }
+    }
 
     & > * {
       flex-grow: 0;
@@ -48,5 +75,29 @@
 
   .code_input {
     border: none;
+  }
+
+  &.theme-dark { 
+    background-color: colors.$material_dark;
+    
+    button {
+      border-bottom: $button_border_size solid gray;
+      background-color: colors.$material_light;
+      transition: background-color .15s ease-out;
+      
+      span {
+        color: colors.$black;
+      }
+
+      &.clicked {
+        border-bottom: .0 solid colors.$gray;
+        border: 1px solid colors.$gray;
+
+        &.run {
+          border-bottom: .0 solid button_dark_border_color;
+          border: 1px solid button_dark_border_color;
+        }
+      }
+    }
   }
 }
