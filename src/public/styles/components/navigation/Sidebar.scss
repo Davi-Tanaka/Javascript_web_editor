@@ -1,4 +1,4 @@
-@use "/src/public/styles/utils/colors" as colors;
+@use "/src/public/styles/utils/colors.module" as colors;
 
 .sidebar {
   display: flex;
