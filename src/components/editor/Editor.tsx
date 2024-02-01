@@ -5,7 +5,7 @@ import { defaultSettingsMaterialLight, defaultSettingsMaterialDark, materialInit
 import { javascript } from '@codemirror/lang-javascript';
 import { ConfigContext } from "@/context/ConfigContext";
 
-import {  useState, useMemo, useCallback, memo, useContext } from "react";
+import {  useState, useMemo, useCallback, memo, useContext, useEffect } from "react";
 
 function Editor() {
   const [editorValue, setEditorValue] = useState(null);
@@ -21,6 +21,10 @@ console.log('O quadrado do número 9213 é:' + quadradoDe9213);`,[]);
 
   const storeEditorValorOnChange = useCallback((value, view) => {
     setEditorValue(value);
+  }, []);
+
+  useEffect(()=> {
+    setEditorValue(defaultEditorValue);
   }, []);
 
   return(
@@ -46,7 +50,7 @@ console.log('O quadrado do número 9213 é:' + quadradoDe9213);`,[]);
             value={ defaultEditorValue }
             autoFocus
             aria-autocomplete="inline"
-            aria-valuetext={ editorValue || defaultEditorValue }
+            aria-valuetext={ editorValue }
 
             onChange={storeEditorValorOnChange}
           /> 

@@ -1,32 +1,46 @@
 import "@styles/components/editor/Output.scss"
 
-import { useRef, useEffect, useState, Children, ReactNode, useMemo, useCallback, memo} from "react";
+import { useRef, useEffect, useMemo, useCallback, memo, useContext, useState} from "react";
+
+import { ConfigContext } from "@/context/ConfigContext"
+import { OutputObject } from "@/interfaces/EditorOutput/OutputObject";
 
 interface EditorOutputProps {
-  children: ReactNode | ReactNode[],
-  clearOutputLines?: boolean
+  outputArr: any[],
+  clearOutputLines?: boolean,
 }
 
-function EditorOutput({ children, clearOutputLines }: EditorOutputProps) {
+function EditorOutput({ outputArr, clearOutputLines }: EditorOutputProps) {
   const output_section = useRef(null);
-  
+  const [config, setConfig] = useContext(ConfigContext);
+  const [outputArray, setOutputArray] = outputArr;
+
+  const settedDate = useMemo(() =>  new Date().toLocaleTimeString(), []);
+  const [childrenAreCleaned, setChildrenAreCleaned] = useState(false);
+
   const clearChildren = useCallback(() => {
     const resultLines = document.querySelectorAll("#output_section .result_line");
 
+    let timeouts = {
+      removeClass: null,
+      removeChild: null,
+      clearChildren: null
+    };
+
+    let duration = {
+      animation: 300,
+      removeAfter: (index) => duration.animation/4 * index
+    }
+
     resultLines.forEach((elem, index) => {
-      
-      const animation = 300;
-      var removeClassAfter = animation/6 * index;
-
-      const setRemoveClass = setTimeout(() => {
+      timeouts.removeClass = setTimeout(() => {
         elem.classList.add("removing-animation");
-      }, removeClassAfter)
-
-
-      const removeChild = setTimeout(() => {
-        elem?.remove();
-      }, (removeClassAfter + 100) * resultLines.length);
+      },duration.removeAfter(index))
     })
+
+    timeouts.clearChildren = setTimeout(() => {
+      setChildrenAreCleaned(true);
+    }, duration.removeAfter(resultLines.length) + 250);
   }, []);
 
   useEffect(() => {
@@ -35,23 +49,49 @@ function EditorOutput({ children, clearOutputLines }: EditorOutputProps) {
       top: (output_section.current as HTMLElement).scrollHeight
     });
     
-  }, [children]);
+  }, [outputArray]);
 
   useEffect(() => {
     if(clearOutputLines) {
       clearChildren();
     };
-
   }, [clearOutputLines])
+
+  useEffect(() => {
+    if(childrenAreCleaned == true) {
+      setOutputArray([]);
+
+      setChildrenAreCleaned(false)
+    }
+  }, [childrenAreCleaned])
 
   return(
     <>
-      <div id="output_section" ref={output_section}>
+      <div 
+        ref={output_section}
+        id="output_section" 
+        className={
+        config.theme == "dark" ? "theme-dark" : "output_section"
+      }>
+      
         <div className="header">
           <h3 className="title">Console</h3>
         </div>
           { 
-            children
+            outputArray.map(value => {
+              return(
+                <div className={
+                  value.type == 'error' ? 'result_line error' : 'result_line'
+                }>
+                  <span className="result_time">{ settedDate }</span>
+                  <code className="output_value">
+                    <pre>
+                      { value.result }
+                    </pre>
+                  </code>
+                </div>
+              )
+            })
           }
       </div>
     </>
