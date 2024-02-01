@@ -17,11 +17,15 @@ function Item(prop: ItemProps) {
       className="item" 
       ref={item} >
       <a href={prop.goTo} className="hyper-link">
-        <div className="icon-wrapper">
-          <span className="material-symbols-outlined">
-            { prop.googleIcon }
-          </span>
-        </div>
+        {
+          (prop.googleIcon != null && prop.googleIcon != undefined)
+          &&
+          <div className="icon-wrapper">
+            <span className="material-symbols-outlined">
+              { prop.googleIcon }
+            </span>
+          </div>
+        }
         <div className="value-wrapper">
           <span className="value">
             { prop.value }

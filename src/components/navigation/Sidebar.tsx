@@ -26,7 +26,8 @@ function Sidebar({ children, direction, backgroundColor, height, width}: Sidebar
         style={{
             flexDirection: direction || (defaultConfig.direction as FlexDirection),
             width: width || defaultConfig.direction,
-            height: height || defaultConfig.height
+            height: height || defaultConfig.height,
+            backgroundColor: backgroundColor || "transparent"
         }}
       >
         <ul>

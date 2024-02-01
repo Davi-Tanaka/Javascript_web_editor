@@ -8,12 +8,12 @@ import styles from "@styles/components/modals/ModalContent.module.scss";
 import { useContext, useEffect } from "react";
 
 function ConfigModal({ closeFunc }) {
-  const  [ ConfigContextState, setConfigContextState ] = useContext(ConfigContext);
+  const  [ config, setConfig ] = useContext(ConfigContext);
 
   function changeTheme(e: React.ChangeEvent<HTMLSelectElement>) {
     const value = e.currentTarget.value;
 
-    setConfigContextState({
+    setConfig({
       theme: value
     });
   }
@@ -49,7 +49,7 @@ function ConfigModal({ closeFunc }) {
                   className={styles.select}
                   name="theme" 
                   id="theme_select" 
-                  defaultValue={ConfigContextState.theme} 
+                  defaultValue={config.theme} 
                   onChange={changeTheme}>
 
                     <option value="light">Claro</option>
