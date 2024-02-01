@@ -1,8 +1,6 @@
 import "@styles/pages/index/index.scss";
 
-import { useState, useCallback, useEffect, useMemo } from "react";
-
-import ConfigContextProvider from "@/context/ConfigContextProvider";
+import { useState, useCallback, useEffect, useMemo, useContext } from "react";
 
 import BluredBackground from "@components/BluredBackground";
 import ConfigModal from "@components/modals/Config";
@@ -11,15 +9,27 @@ import HelpModal from "@components/modals/Help";
 import ButtonsHeader from "@components/editor/ButtonsHeaders"
 import Editor from "@components/editor/Editor"
 import EditorOutput from "@/components/editor/EditorOutput"
-import OutputLine from "@components/editor/OutputLine";
 
 import { OutputObject } from "@interfaces/EditorOutput/OutputObject";
 
+import { ConfigContext } from "@context/ConfigContext";
+
 function App() {
+  const [config, setConfig] = useContext(ConfigContext);
   const [outputArray, setOutputArrayValue] = useState<OutputObject[]>([{
     type: "log",
     result: "Bem vindo :D"
   }]);
+  
+  useEffect(()=> {
+    var media = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (media) {
+      setConfig({
+        theme: "dark"
+      })
+    }
+  }, [])
 
   const [ screensStatus, setScreenStatus ] = useState({
     helpIsOpen: false,
@@ -105,6 +115,10 @@ function App() {
         ...screensStatus,
         helpIsOpen: !screensStatus.helpIsOpen
       });
+    },
+
+    clear: (event) => {
+      console.clear();
     }
   };
 
@@ -129,7 +143,6 @@ function App() {
 
   return(
     <>
-    <ConfigContextProvider>
       <div id="root">
         { 
           screensStatus.configIsOpen 
@@ -151,13 +164,11 @@ function App() {
           <Editor/>
         </div>
         
-        <EditorOutput clearOutputLines={clearOutputLines}>
-          {
-            outputArray.map((value, index) => <OutputLine value={value} key={index}/>)
-          }
-        </EditorOutput>
+        <EditorOutput 
+          clearOutputLines={clearOutputLines} 
+          outputArr={[outputArray, setOutputArrayValue]}
+        />
       </div>
-    </ConfigContextProvider>
     </>
   );
 }
