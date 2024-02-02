@@ -3,7 +3,7 @@
 .table {
   width: 100%;
   height: fit-content;
-
+  
   tr {
     width: 100%;
     display: flex;
@@ -36,5 +36,9 @@
       min-height: 3em;
       width: 50%;
     }
+  }
+
+  &.theme_dark {
+    background-color: colors.$material_dark_lighter;
   }
 }

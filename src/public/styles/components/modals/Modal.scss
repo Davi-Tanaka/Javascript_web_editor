@@ -27,7 +27,7 @@
   border-radius: 1em;
   background: colors.$white;
 
-  border: 1px solid colors.$gray;
+  border: none;
 
   .close_screen_button {
     position: absolute;
@@ -75,11 +75,34 @@
     align-items: start;
     justify-content: start;
     height: calc(100% - $title_wrapper);
-    padding: 1em 0 0 0;
 
     & > * {
       flex-grow: 0;
       flex-shrink: 0;
+    }
+  }
+
+
+  &.theme-dark {
+    border: .2em solid colors.$black;
+    background-color: colors.$material_dark;
+
+    * {
+      color: colors.$gray;
+    }
+
+    .title-container {
+      border-bottom: 1px solid colors.$material_dark_lighter;
+
+      .title {
+        color: colors.$gray;
+      }
+    }
+    
+    .close_screen_button {
+      span {
+        color: colors.$gray;
+      }
     }
   }
 }

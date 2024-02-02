@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { MouseEventHandler } from "react";
-import { FlexDirection } from "@interfaces/Styles";
+import { MouseEventHandler, useContext } from "react";
 
 import "@styles/components/modals/Modal.scss";
 
 import { useRippleEffect } from "@/hooks/useRippleEffect";
+import { ConfigContext } from "@/context/ConfigContext";
 
 interface ModalProps {
   functionToCloseTheModel: MouseEventHandler,
@@ -15,6 +15,8 @@ interface ModalProps {
 };
 
 function Modal(prop : ModalProps) {
+  const  [ config, setConfig ] = useContext(ConfigContext);
+
   const closeButton = useRef(null);
 
   useEffect(() => {
@@ -25,9 +27,13 @@ function Modal(prop : ModalProps) {
   }, []);
   return(
     <>
-      <form 
-          action=""         method="post" 
-          className="modal" onSubmit={e => e.preventDefault()}
+      <form
+          action=""
+          method="post" 
+          className={
+            config.theme == "dark" ? "modal theme-dark" : "modal"
+          }
+          onSubmit={e => e.preventDefault()}
           
           style={{
             width: prop.width,

@@ -1,41 +1,69 @@
-import { FlexDirection } from "@interfaces/Styles";
+import React, { useContext, memo, useMemo } from "react";
 
-import React from "react";
+import { ConfigContext } from "@/context/ConfigContext";
+import { FlexDirection } from "@interfaces/Styles";
 
 import "@styles/components/navigation/Sidebar.scss";
 
-interface SidebarProps {
-  children: React.ReactNode,
-  direction?: FlexDirection,
-  backgroundColor?: string,
-  width?: string,
-  height?: string
+interface NavbarItem {
+  googleIcon?: string,
+  item: string,
+  goTo?: string
 }
 
-function Sidebar({ children, direction, backgroundColor, height, width}: SidebarProps) {
+interface SidebarProps {
+  items: NavbarItem[],
+  width?: string,
+  height?: string,
+}
+
+function Sidebar({ items, height, width }: SidebarProps) {
+  const  [ config, setConfig ] = useContext(ConfigContext);
   const defaultConfig = {
-    direction: "row",
     width: "5em",
     height: "100%"
   }
 
+  const renderizedItems = useMemo(() => items.map(item => {
+    return(
+      <li className="item">
+        <a href={ item.goTo || "#" } className="hyper-link">
+          {
+            (item.googleIcon != null && item.googleIcon != undefined)
+            &&
+            <div className="icon-wrapper">
+              <span className="material-symbols-outlined">
+                { item.googleIcon }
+              </span>
+            </div>
+          }
+          <div className="value-wrapper">
+            <span className="value">
+              { item.item }
+            </span>
+          </div>
+        </a>
+      </li>
+    )
+  }), []);
+
   return(
     <>
       <nav
-        className="sidebar" 
+        className={ config.theme == "dark" ? "sidebar theme-dark" : "sidebar" } 
         style={{
-            flexDirection: direction || (defaultConfig.direction as FlexDirection),
-            width: width || defaultConfig.direction,
+            width: width || defaultConfig.width,
             height: height || defaultConfig.height,
-            backgroundColor: backgroundColor || "transparent"
         }}
       >
         <ul>
-          { children }
+          {
+            renderizedItems
+          }
         </ul>
       </nav>
     </>
   )
 }
 
-export default Sidebar;
+export default memo(Sidebar);

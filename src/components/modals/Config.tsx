@@ -1,17 +1,16 @@
 import ModalTemplate from "@components/modals/ModalTemplate";
 import Sidebar from "@components/navigation/Sidebar";
-import Item from "@components/navigation/Item";
 
 import { ConfigContext } from "@/context/ConfigContext";
 
 import styles from "@styles/components/modals/ModalContent.module.scss";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 function ConfigModal({ closeFunc }) {
   const  [ config, setConfig ] = useContext(ConfigContext);
 
   function changeTheme(e: React.ChangeEvent<HTMLSelectElement>) {
-    const value = e.currentTarget.value;
+    const value = e.currentTarget.value as "light" | "dark";
 
     setConfig({
       theme: value
@@ -30,9 +29,15 @@ function ConfigModal({ closeFunc }) {
 
         <Sidebar
           width={sidebar.w}
+          items={
+            [
+              {
+                item: "Editor",
+                goTo: "#editor-configuration"
+              }
+            ]
+          }
           >
-            
-          <Item value="Editor" goTo="#editor-configuration"/>
         </Sidebar>
 
         <div className={styles.modal_content}

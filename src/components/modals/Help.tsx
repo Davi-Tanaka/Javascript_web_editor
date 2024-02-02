@@ -1,13 +1,13 @@
+import { useCallback, useMemo, Fragment, useContext } from "react";
+
+
 import ModalTemplate from "@components/modals/ModalTemplate";
 import Sidebar from "@components/navigation/Sidebar";
-import Item from "@components/navigation/Item";
 
 import styles from "@styles/components/modals/ModalContent.module.scss";
 import tableStyles from "@styles/components/CombinationTable.module.scss"
 
-import colors from "@styles/utils/_colors.module.scss";
-
-import { useCallback, useMemo, Fragment } from "react";
+import { ConfigContext } from "@/context/ConfigContext";
 
 interface HelpContent {
   title: string,
@@ -15,12 +15,20 @@ interface HelpContent {
 };
 
 function HelpModal({ closeFunc }) {
-  const values = [
+  const  [ config, setConfig ] = useContext(ConfigContext);
+
+  const sidebarItems = [
     {
       title: "Combinações de teclas.",
       content: (
         <Fragment>
-          <table className={tableStyles.table}>
+          <table className={
+            config.theme == "dark" 
+              ?
+                tableStyles.table + " " + tableStyles.theme_dark
+              :
+                tableStyles.table
+            }>
             <tr>
               <th>Combinação</th>
               <th>Ação</th>
@@ -29,10 +37,7 @@ function HelpModal({ closeFunc }) {
               <td>Escape</td>
               <td>Fecha todos os modals e popup.</td>
             </tr>
-            <tr>
-              <td></td>
-              <td></td>
-            </tr>
+      
           </table>
         </Fragment>
       )
@@ -57,10 +62,14 @@ function HelpModal({ closeFunc }) {
       >
       <Sidebar
         width={navbar.w}
+        items={
+          sidebarItems.map(item => {
+            return {
+              item: item.title,
+            }
+          })
+        }
       >
-          {
-            values.map(value => <Item value={value.title} goTo={formatElementId(value.title)}/>)
-          }
       </Sidebar>
 
       <div
@@ -70,16 +79,16 @@ function HelpModal({ closeFunc }) {
         }}
       >
           {
-            values.map(value => {
+            sidebarItems.map(item => {
               return(
                 <>
                   <div className={styles.modal_section}>
-                    <div className={styles.wrapper_title} id={formatElementId(value.title)}>
-                        <h5 className={styles.title}>{ value.title }</h5>
+                    <div className={styles.wrapper_title} id={formatElementId(item.title)}>
+                        <h5 className={styles.title}>{ item.title }</h5>
                     </div>
                     <div className={styles.section_content} id="autor_help_modal">
                       <p className={styles.paragraph}>
-                        { value.content }
+                        { item.content }
                       </p>
                     </div>
                   </div> 
