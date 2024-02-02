@@ -28,6 +28,7 @@ function Modal(prop : ModalProps) {
   return(
     <>
       <form
+          autoFocus
           action=""
           method="post" 
           className={
