@@ -75,6 +75,7 @@
     align-items: start;
     justify-content: start;
     height: calc(100% - $title_wrapper);
+    transition: height .3s ease;
 
     & > * {
       flex-grow: 0;
@@ -102,6 +103,39 @@
     .close_screen_button {
       span {
         color: colors.$gray;
+      }
+    }
+  }
+}
+
+
+@media(max-width: 720px) {
+  .modal {
+    width: calc(100% - 2em) !important;
+    height: calc(100% - 2em);
+
+    .content-container {
+      display: flex;
+      flex-direction: column;
+
+      .sidebar {
+        width: 100% !important;
+        height: min-content !important ;
+
+        ul {
+          list-style-position: outside;
+
+          .item {
+            list-style-position: outside !important;
+            list-style-type: upper-roman !important;
+          }
+        }
+      }
+
+      .content-container {
+        overflow-y: scroll;
+        overflow-x: hidden;
+
       }
     }
   }

@@ -98,3 +98,8 @@
   white-space: pre-line;
 }
 
+@media(max-width: 720px) {
+  .modal_content {
+    width: 100% !important;
+  }
+}

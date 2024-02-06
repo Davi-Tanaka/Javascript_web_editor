@@ -11,7 +11,8 @@ interface EditorOutputProps {
 }
 
 function EditorOutput({ outputArr, clearOutputLines }: EditorOutputProps) {
-  const output_section = useRef(null);
+  const output_lines = useRef(null);
+
   const [config, setConfig] = useContext(ConfigContext);
   const [outputArray, setOutputArray] = outputArr;
 
@@ -44,9 +45,9 @@ function EditorOutput({ outputArr, clearOutputLines }: EditorOutputProps) {
   }, []);
 
   useEffect(() => {
-    (output_section.current as HTMLElement).scrollTo({
+    (output_lines.current as HTMLElement).scrollTo({
       behavior: "smooth",
-      top: (output_section.current as HTMLElement).scrollHeight
+      top: (output_lines.current as HTMLElement).scrollHeight
     });
     
   }, [outputArray]);
@@ -68,7 +69,6 @@ function EditorOutput({ outputArr, clearOutputLines }: EditorOutputProps) {
   return(
     <>
       <div 
-        ref={output_section}
         id="output_section" 
         className={
         config.theme == "dark" ? "theme-dark" : "output_section"
@@ -77,6 +77,9 @@ function EditorOutput({ outputArr, clearOutputLines }: EditorOutputProps) {
         <div className="header">
           <h3 className="title">Console</h3>
         </div>
+
+        <div className="output_lines" ref={output_lines}
+>
           { 
             outputArray.map(value => {
               return(
@@ -93,6 +96,7 @@ function EditorOutput({ outputArr, clearOutputLines }: EditorOutputProps) {
               )
             })
           }
+        </div>
       </div>
     </>
   )

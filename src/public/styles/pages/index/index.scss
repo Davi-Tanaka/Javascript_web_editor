@@ -21,3 +21,13 @@
   }
 }
 
+@media(max-width: 720px) {
+  #root {
+    flex-direction: column;
+
+    #editor_container {
+      width: 100%;
+      height: 70vh
+    }
+  }
+}

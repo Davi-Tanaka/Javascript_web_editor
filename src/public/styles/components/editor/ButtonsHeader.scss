@@ -79,7 +79,8 @@
 
   &.theme-dark { 
     background-color: colors.$material_dark;
-    
+    border-bottom: 1px solid colors.$material_dark_lighter;
+
     button {
       border-bottom: $button_border_size solid gray;
       background-color: colors.$material_light;

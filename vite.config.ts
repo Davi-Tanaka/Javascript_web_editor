@@ -24,6 +24,10 @@ export default defineConfig({
   build: {
     cssMinify: "esbuild",
     minify: "esbuild",
-    outDir: resolve(__dirname, "/dist"),
   },
+
+  preview: {
+    port: 4000,
+    open: resolve(__dirname, "/dist/index.html")
+  }
 });

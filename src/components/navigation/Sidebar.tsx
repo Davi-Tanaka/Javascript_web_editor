@@ -1,4 +1,4 @@
-import React, { useContext, memo, useMemo } from "react";
+import React, { useContext, memo, useMemo, useState, useEffect } from "react";
 
 import { ConfigContext } from "@/context/ConfigContext";
 import { FlexDirection } from "@interfaces/Styles";
@@ -18,7 +18,11 @@ interface SidebarProps {
 }
 
 function Sidebar({ items, height, width }: SidebarProps) {
-  const  [ config, setConfig ] = useContext(ConfigContext);
+  const [ windowW, setWindowW ] = useState(window.innerWidth)
+  const [ SidebarIsOpen, setSidebarState ] = useState(false)
+
+  const [ config, setConfig ] = useContext(ConfigContext);
+
   const defaultConfig = {
     width: "5em",
     height: "100%"
@@ -47,10 +51,12 @@ function Sidebar({ items, height, width }: SidebarProps) {
     )
   }), []);
 
+  let navbarClasses = `sidebar ${(config.theme == "dark") ? 'theme-dark' : ''} ${(!SidebarIsOpen && windowW < 720) ? "closed" : ''}`;
+
   return(
     <>
       <nav
-        className={ config.theme == "dark" ? "sidebar theme-dark" : "sidebar" } 
+        className={ navbarClasses } 
         style={{
             width: width || defaultConfig.width,
             height: height || defaultConfig.height,
@@ -61,6 +67,21 @@ function Sidebar({ items, height, width }: SidebarProps) {
             renderizedItems
           }
         </ul>
+        {
+          (windowW < 720) 
+            &&
+          (
+            <div className="close_sidebar_on_mobile">
+              <button
+                onClick={(e) => setSidebarState(!SidebarIsOpen)}
+              >
+                <span className="material-symbols-outlined">
+                  { SidebarIsOpen ? "keyboard_arrow_up" : "keyboard_arrow_down" }
+                </span>
+              </button>
+            </div>
+          )
+        }
       </nav>
     </>
   )

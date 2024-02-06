@@ -16,6 +16,7 @@ import { ConfigContext } from "@context/ConfigContext";
 
 function App() {
   const [config, setConfig] = useContext(ConfigContext);
+  const [ oldConsole, setOldConsole ] = useState({ ...console });
   const [outputArray, setOutputArrayValue] = useState<OutputObject[]>([{
     type: "log",
     result: "Bem vindo :D"
@@ -39,14 +40,14 @@ function App() {
   const [ clearOutputLines, shouldClearOutputLines ] = useState(false);
     
   console.log = function (value) {
+    oldConsole.log(value);
+
     return value;
   };
 
-  console.error = useCallback((value) => {
-    return value;
-  }, []);
+  console.clear = useCallback(() => {
+    oldConsole.clear();
 
-  console.clear = useCallback(() => {  
     shouldClearOutputLines(true);
   
     setTimeout(async () => {
@@ -55,6 +56,8 @@ function App() {
   },[]);
 
   console.error = (error) => {
+    oldConsole.error(error);
+
     setOutputArrayValue([...outputArray, {
       type: "error",
       result: error
