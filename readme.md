@@ -1,20 +1,14 @@
-# Sobre
-Simples editor javascript
-
 # Guia de uso
-
 ## Comandos
 
 ### `npm run build`
 Controi o projeto para produção no diretorio `/dist`
-### `npm start`
-Inicia o projeto na porta 4000
 
 ### `npm run dev`
-Inicia o projeto no modo de desenvolvimento na porta 4000
+Inicia um servidor local na porta 4000 em modo de desenvolvimento.
 
 ### `npm run preview`
-Inicia o projeto no modo de produção sem contruir no diretorio `/dist` na porta 4000
+Inicia um servidor local na porta 5000 e serve o conteudo do diretorio `/dist`
 
 
 # Lista de tecnologias ultilizadas
@@ -23,3 +17,11 @@ Inicia o projeto no modo de produção sem contruir no diretorio `/dist` na port
 - SCSS
 - React
 - Typescript
+
+# Imagens do projeto
+
+### Tema escuro
+!["Tema escuro"](./images/dark_mode.png)
+
+### Tema claro
+!["Tema claro"](./images/light_mode.png)

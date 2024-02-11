@@ -5,6 +5,7 @@ import { resolve } from "path"
 
 export default defineConfig({
   plugins: [react()],
+
   server: {
     host: "0.0.0.0",
     port: 4000,
@@ -22,12 +23,14 @@ export default defineConfig({
   },
 
   build: {
+    outDir: "./dist",
     cssMinify: "esbuild",
     minify: "esbuild",
   },
 
   preview: {
-    port: 4000,
-    open: resolve(__dirname, "/dist/index.html")
+    host: "0.0.0.0",
+    port: 5000,
+    open: resolve(__dirname, "/dist/index.html"),
   }
 });
