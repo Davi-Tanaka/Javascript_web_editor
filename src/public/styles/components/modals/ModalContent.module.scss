@@ -1,6 +1,8 @@
 @use "/src/public/styles/utils/colors.module" as colors;
 
 .modal_content {
+  height: 100%;
+
   display: flex;
   flex-direction: column;
 
@@ -12,6 +14,12 @@
 
   padding: 1em;
   background-color: transparent;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5em;
+
+  scroll-behavior: smooth;
 
   & * {
     flex-grow: 0;

@@ -76,6 +76,8 @@
     justify-content: start;
     height: calc(100% - $title_wrapper);
     transition: height .3s ease;
+    scroll-behavior: smooth;
+    
 
     & > * {
       flex-grow: 0;
@@ -107,7 +109,6 @@
     }
   }
 }
-
 
 @media(max-width: 720px) {
   .modal {

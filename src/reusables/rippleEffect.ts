@@ -1,10 +1,10 @@
 import RippleStyles from "@styles/utils/modules/RippleEffect.module.scss";
 
-function useRippleEffect(event: MouseEvent, durationInMiliseconds) {
+function rippleEffect(event: MouseEvent, durationInMiliseconds: number) {
   const target = event.currentTarget as HTMLButtonElement;
   const animationTime = durationInMiliseconds;
   const rect = target.getBoundingClientRect();
-
+   
   const click = {
     x: event.clientX - rect.left,
     y: event.clientY - rect.top
@@ -29,4 +29,4 @@ function useRippleEffect(event: MouseEvent, durationInMiliseconds) {
 }
 
 
-export { useRippleEffect }
+export { rippleEffect }

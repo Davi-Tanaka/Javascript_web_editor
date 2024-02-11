@@ -3,7 +3,7 @@ import { MouseEventHandler, useContext } from "react";
 
 import "@styles/components/modals/Modal.scss";
 
-import { useRippleEffect } from "@/hooks/useRippleEffect";
+import { rippleEffect } from "@/reusables/rippleEffect";
 import { ConfigContext } from "@/context/ConfigContext";
 
 interface ModalProps {
@@ -20,7 +20,7 @@ function Modal(prop : ModalProps) {
   const closeButton = useRef(null);
 
   useEffect(() => {
-    var Ripple = useRippleEffect;
+    var Ripple = rippleEffect;
     var btn =  closeButton.current as HTMLButtonElement;
 
     btn.addEventListener("click", (e) => Ripple(e, 1000))

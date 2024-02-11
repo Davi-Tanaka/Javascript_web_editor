@@ -2,7 +2,7 @@ import "@styles/components/editor/ButtonsHeader.scss"
 
 import { MouseEventHandler, useCallback, useEffect, useMemo , useContext} from "react"
 
-import { useRippleEffect } from "@/hooks/useRippleEffect"
+import { rippleEffect } from "@/reusables/rippleEffect"
 
 import { ConfigContext } from "@/context/ConfigContext"
 
@@ -31,7 +31,7 @@ function ButtonsHeaders({ commandFunctions }: ButtonsHeadersProps) {
 
   useEffect(() => {
     const buttons = document.querySelectorAll(".buttons_wrapper button");
-    const Ripple = useRippleEffect
+    const Ripple = rippleEffect
 
     buttons.forEach(button => {
       button.addEventListener("click", (e: MouseEvent) => Ripple(e, 1000))

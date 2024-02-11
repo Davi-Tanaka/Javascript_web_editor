@@ -1,6 +1,6 @@
 import "@styles/pages/index/index.scss";
 
-import { useState, useCallback, useEffect, useMemo, useContext } from "react";
+import { useState, useCallback, useEffect, useContext } from "react";
 
 import BluredBackground from "@components/BluredBackground";
 import ConfigModal from "@components/modals/Config";
@@ -16,7 +16,8 @@ import { ConfigContext } from "@context/ConfigContext";
 
 function App() {
   const [config, setConfig] = useContext(ConfigContext);
-  const [ oldConsole, setOldConsole ] = useState({ ...console });
+
+  const [ oldConsole, setOldConsole ] = useState({ ...console});
   const [outputArray, setOutputArrayValue] = useState<OutputObject[]>([{
     type: "log",
     result: "Bem vindo :D"
@@ -39,7 +40,7 @@ function App() {
 
   const [ clearOutputLines, shouldClearOutputLines ] = useState(false);
     
-  console.log = function (value) {
+  console.log = function(value) {
     oldConsole.log(value);
 
     return value;

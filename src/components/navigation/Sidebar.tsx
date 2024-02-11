@@ -2,6 +2,7 @@ import React, { useContext, memo, useMemo, useState, useEffect } from "react";
 
 import { ConfigContext } from "@/context/ConfigContext";
 import { FlexDirection } from "@interfaces/Styles";
+import { formatID } from "@/reusables/formatID";
 
 import "@styles/components/navigation/Sidebar.scss";
 
