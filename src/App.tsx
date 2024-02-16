@@ -66,7 +66,7 @@ function App() {
   }
 
   const buttonsHeaderCommand = {
-    run: (event) => {
+    run: async (event) => {
       const editorTextValue =  document.querySelector("#CodeMirrorEditor").ariaValueText;
 
       try {
@@ -77,15 +77,8 @@ function App() {
           if(resultType == "object") {
             setOutputArrayValue([...outputArray, {
               type: "log",
-              result: codeResult
-            } ]);
-          }
-    
-          if(resultType == "boolean") {
-            setOutputArrayValue([...outputArray, {
-              type: "log",
-              result: (codeResult as boolean).toString()
-            }]);
+              result: JSON.stringify(await codeResult)
+            } ]); 
           }
     
           if(resultType == "function") {
@@ -107,21 +100,21 @@ function App() {
       }
     },
 
-    config: (event)=> {
+    config: async (event)=> {
       setScreenStatus({
         ...screensStatus,
         configIsOpen: !screensStatus.configIsOpen
       });
     },
 
-    help: (event) => {
+    help: async (event) => {
       setScreenStatus({
         ...screensStatus,
         helpIsOpen: !screensStatus.helpIsOpen
       });
     },
 
-    clear: (event) => {
+    clear: async (event) => {
       console.clear();
     }
   };
