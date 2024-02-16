@@ -3,7 +3,6 @@ import "@styles/components/editor/Output.scss"
 import { useRef, useEffect, useMemo, useCallback, memo, useContext, useState} from "react";
 
 import { ConfigContext } from "@/context/ConfigContext"
-import { OutputObject } from "@/interfaces/EditorOutput/OutputObject";
 
 interface EditorOutputProps {
   outputArr: any[],
